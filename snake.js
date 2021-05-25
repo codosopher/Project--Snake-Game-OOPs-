@@ -1,6 +1,6 @@
 //In this Snake Game, we have used various programming concepts to build this game. 
 // 1. we used the concepts of Object Oriented Programming
-// 2. we used date structure Array
+// 2. we used data structure Array
 // 3. we used functions 
 // 4. we used some basic algorithms to check if the snake is going out of the bounds or not 
 // 5. we used conditional statements 
@@ -27,6 +27,7 @@ function init(){
 	trophyImage=new Image();
 	trophyImage.src="Assets/trophy.png";
 
+        //Create snake JSON Object
 	snake={
 		initLength:5,
 		color:"blue",
@@ -74,7 +75,7 @@ function init(){
 		//Here, (x,y)-value of the back of the cells[] Array is, (0,0) 
 
 		//Step-2: And add a new cell to the front of the Snake or in the right most direction. 
-		//It means, the x-value of the new cell will be by adding 1 unit to the x-value of the front cell or 
+		//It means, the x-value of the new cell will be adding by 1 unit to the x-value of the front cell or 
 		//head of the snake and insert it to the front of the cells[] Array by unshift({x,y}) operation.
 
 		//Here, head of the Snake with that cell, (x,y) pair value is (5,0); headX=5 and headY=0 
@@ -82,12 +83,13 @@ function init(){
 		//because we're dispositioning x-axis; it means we're moving in right direction.
 
 		updateSnake:function(){
-			//Updating Snake according to the direction property
+			//Updating Snake according to the direction property:
 
 			//Also check if the snake has eaten food, increase the length of the snake and generate new food object as well
 			//for that, we first check if the coordinate of the snake overlaps with the coordinate of the food, in that way we
 			//come to know that if collision is there
-			var headX=snake.cells[0].x;
+			
+                        var headX=snake.cells[0].x;
 			var headY=snake.cells[0].y;
 
 			if(headX==food.x && headY==food.y){
@@ -118,11 +120,12 @@ function init(){
 			//1 new cell will insert in the right most direction of the Snake Array.
 			this.cells.unshift({x:nextX,y:nextY});
 
-			//Write a logic that prevents snake from going out
+			//Write a logic that prevents snake from going out:
 
 			//first find out the last coordinate of the canvas
 			//the reason of doing (W-cs) and (H-cs) because, snake head should not go outside of the border    
-			var lastX=Math.round((W-cs)/cs);
+			
+                        var lastX=Math.round((W-cs)/cs);
 			var lastY=Math.round((H-cs)/cs);
 
 			if(this.cells[0].x<0 || this.cells[0].y<0 || this.cells[0].x>lastX || this.cells[0].y>lastY){
@@ -179,12 +182,13 @@ function init(){
 }
 
 function draw(){
-	//In our drwa() function we should erase the old screen or frame; so everytime we draw a new Snake Frame 
+	//In our draw() function we should erase the old screen or frame; so everytime we draw a new Snake Frame 
 	//by calling drawSnake() function in the draw() function, we should erase the old Snake Frame
-	//Here Snake Frame is made of 5 rectangular boxes altogether.
+	//Here Snake Frame is made of 5 rectangular boxes altogether or more
 
 	//Erase the Old Frame
 	pen.clearRect(0,0,W,H);
+
 	//In the draw() function, we need to call this function, drawSnake()
 	snake.drawSnake();
 
@@ -192,7 +196,7 @@ function draw(){
 	pen.fillStyle=food.color;
 	pen.drawImage(foodImage,food.x*cs,food.y*cs,cs+2,cs-1);
 
-	//Before writing the score, draw trophy image first so that score showed in the trophy 
+	//Before writing the score object, we should draw the trophy image first so that score showed over the trophy 
 	pen.drawImage(trophyImage,20,20,cs,cs);
 
 	//Draw Score Object
@@ -209,10 +213,10 @@ function getRandomFood(){
 	//this function gives cordinates about food object 
 	var foodX=Math.round(Math.random()*(W-cs)/cs); 
 	var foodY=Math.round(Math.random()*(H-cs)/cs);
-	//the reason to do (W-cs) and (H-cs) because we don't want out food cordinates outside the canvas. So, we don't need out food coordinates 
-	//x=W or y=H  
-	//And divided by cs(cell size) because we rendered the cells by multiplying with cs so to get the actual cordinates 
-	//(x,y) range in between 0 to (500/cs).  
+	//the reason to do (W-cs) and (H-cs) because we don't want our food cordinates outside the canvas. So, we don't need our food coordinates 
+	//like this, x=W or y=H  
+	//And divided by cs(cell size) because we rendered the cells by multiplying with cs; it means cell blocks are in
+        //multiple of cs so to get the actual cordinates (x,y) range in between 0 to (500/cs).  
 
 	//food Object (JSON Object)
 	var food={
@@ -236,4 +240,4 @@ function gameloop(){
 
 init();
 //gameloop();
-start=setInterval(gameloop,100);
+start=setInterval(gameloop,100);//Start the Game
